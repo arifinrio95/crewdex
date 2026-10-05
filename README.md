@@ -18,11 +18,6 @@ curl -fsSL https://raw.githubusercontent.com/arifinrio95/crewdex/main/install.sh
 
 It downloads the latest release, puts `Crewdex.app` in `/Applications` and opens it.
 
-**Requirements**
-
-- macOS 13.3 or newer, Apple Silicon or Intel
-- For the Codex features: the [ChatGPT desktop app](https://chatgpt.com/download) or the Codex CLI (`npm i -g @openai/codex`), signed in. Crewdex finds it automatically and uses your existing login, plugins, MCP servers and skills. Without Codex it still works as a planner.
-
 <details>
 <summary>Install by hand, or build it yourself</summary>
 
@@ -43,6 +38,27 @@ cd crewdex
 ```
 
 </details>
+
+## What you need
+
+| | Requirement | Why |
+|---|---|---|
+| **Mac** | macOS 13.3 (Ventura) or newer, Apple Silicon or Intel | Crewdex is a native Mac app. There is no Windows, Linux, iOS or web version. |
+| **Codex** | The Codex CLI, from the [ChatGPT desktop app](https://chatgpt.com/download) (it ships inside the app) or installed on its own with `npm i -g @openai/codex` or `brew install codex` | Crewdex has no AI of its own. It launches the `codex app-server` already on your Mac and talks to it. |
+| **A Codex login** | Signed in to Codex with your ChatGPT account on a plan that includes Codex, or with an OpenAI API key | Every Codex task runs on *your* account. Usage counts against your own ChatGPT plan limits (or is billed to your API key). Crewdex adds no fee and has no account of its own. |
+| **Internet** | Needed whenever Codex works | The models run at OpenAI. Planning (projects, tasks, Week, Horizon) works offline. |
+
+Not needed: Xcode, Node, Python, Docker, a server, or a Crewdex account. The Xcode Command Line Tools are only needed if you build from source.
+
+**Good to know**
+
+- **Without Codex** Crewdex still works as a planner; the Ask Codex buttons wait until Codex is found and signed in. Crewdex looks for Codex in the ChatGPT app, Homebrew, npm and your `PATH`; you can also point to it in Settings.
+- **It shares `~/.codex`** with the Codex app and CLI, so your login, plugins, MCP servers and skills are already there. What Codex can do in Crewdex (image generation, web search, Computer Use, document plugins) is whatever your own Codex setup and plan allow.
+- **Codex acts on your Mac.** Each project has an access mode: *Ask first* (default, every command and file change needs your OK), *Project folder*, or *Full access*.
+- **Not notarized.** The app is signed ad hoc, not by an Apple Developer ID. The one-line installer handles this; a manual download needs one extra step (below).
+- **Network.** Crewdex has no server, analytics or telemetry. The app itself only fetches its typefaces from Google Fonts; everything else goes through your local Codex to OpenAI.
+- **Uninstall:** delete `Crewdex.app`. Your projects stay in `~/Crewdex` until you delete that folder too.
+
 
 ## What it does
 
@@ -75,7 +91,7 @@ Everything stays on your Mac, as plain files:
   .crewdex/runs/<id>/       steps.md (plain language), events.jsonl (verbatim), run.json
 ```
 
-Crewdex talks to Codex by launching `codex app-server` on your machine. It sends nothing anywhere else.
+Crewdex talks to Codex by launching `codex app-server` on your machine. There is no Crewdex server.
 
 ## Repository layout
 
