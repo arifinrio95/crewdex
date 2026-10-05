@@ -1,0 +1,12 @@
+build/
+protocol/
+.claude/
+.DS_Store
+film/frames/
+film/out/
+film/*.mp4
+film/*.wav
+film/*.m4a
+film/events.log
+film/boot-test.html
+film/files/vt-test.html
